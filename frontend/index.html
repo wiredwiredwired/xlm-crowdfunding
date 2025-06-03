@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META INFORMATION -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar (XLM) Crowdfunding DApp</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- FREIGHTER API CDN - Required for wallet integration -->
+    <!-- This script provides the Freighter wallet API for Stellar blockchain interactions -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/stellar-freighter-api/4.1.0/index.min.js'></script>
+    
+    <!-- Alternative Freighter API loading -->
+    <script>
+        // Freighter API alternatif yükleme metodu
+        if (typeof window.freighterApi === 'undefined') {
+            console.log('🔄 CDN Freighter API bulunamadı, alternatif yükleniyor...');
+            
+            // Browser extension API'yi kontrol et
+            if (window.freighter) {
+                window.freighterApi = window.freighter;
+                console.log('✅ Browser extension Freighter API kullanılıyor');
+            }
+        }
+    </script>
+    
+    <!-- STELLAR SDK - Required for real blockchain transactions -->
+    <!-- Updated Stellar SDK with better browser compatibility -->
+    <script src="https://cdn.jsdelivr.net/npm/stellar-sdk@11.2.2/dist/stellar-sdk.min.js"></script>
+    
+    <script>
+        /**
+         * FREIGHTER API LOADING VERIFICATION
+         * 
+         * This script runs when the DOM is loaded to verify that all required
+         * external dependencies (Freighter API and Stellar SDK) are properly loaded.
+         * It provides debugging information in the console for troubleshooting.
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔍 HTML DOM loaded, checking Freighter availability...');
+            console.log('🌐 CDN Script loaded?');
+            console.log('📦 window.freighterApi:', typeof window.freighterApi);
+            console.log('📦 window.freighter:', typeof window.freighter);
+            
+            // STELLAR SDK VERIFICATION: Check if Stellar SDK is properly loaded
+            console.log('⭐ window.StellarSdk:', typeof window.StellarSdk);
+            if (window.StellarSdk) {
+                console.log('⭐ StellarSdk keys:', Object.keys(window.StellarSdk));
+                console.log('⭐ StellarSdk.Server:', typeof window.StellarSdk.Server);
+                console.log('⭐ StellarSdk.Horizon:', typeof window.StellarSdk.Horizon);
+            }
+            
+            // FREIGHTER API VERIFICATION: Check if Freighter API is available
+            if (window.freighterApi) {
+                console.log('✅ CDN Freighter API found!');
+                console.log('🔧 API methods:', Object.keys(window.freighterApi));
+            } else {
+                console.log('❌ CDN Freighter API failed to load!');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- MAIN HEADER SECTION -->
+        <header>
+            <h1>🌟 Stellar Crowdfunding</h1>
+            <p>Decentralized crowdfunding platform built on Stellar (XLM) blockchain</p>
+            
+            <!-- WALLET CONNECTION STATUS -->
+            <div id="wallet-status" class="wallet-status">
+                <!-- Default state: Show connect button -->
+                <button id="connect-wallet" class="btn btn-primary">Connect Freighter Wallet</button>
+                
+                <!-- Connected state: Show wallet info (hidden by default) -->
+                <div id="wallet-info" class="wallet-info" style="display: none;">
+                    <span id="wallet-address"></span>
+                    <span id="wallet-balance"></span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- CAMPAIGN CREATION SECTION -->
+            <section class="create-campaign-section">
+                <h2>📋 Create New Campaign</h2>
+                <form id="create-campaign-form" class="campaign-form">
+                    <!-- PROJECT TITLE INPUT -->
+                    <div class="form-group">
+                        <label for="project-title">Project Title:</label>
+                        <input type="text" id="project-title" name="projectTitle" required 
+                               placeholder="e.g., Innovative Blockchain Project">
+                    </div>
+                    
+                    <!-- FUNDING GOAL INPUT -->
+                    <div class="form-group">
+                        <label for="funding-goal">Funding Goal (XLM):</label>
+                        <input type="number" id="funding-goal" name="fundingGoal" min="1" step="0.0000001" required
+                               placeholder="e.g., 1000">
+                    </div>
+                    
+                    <!-- SUBMIT BUTTON -->
+                    <button type="submit" class="btn btn-primary" id="create-campaign-btn">
+                        🚀 Create Campaign
+                    </button>
+                </form>
+            </section>
+
+            <!-- CAMPAIGN LISTING SECTION -->
+            <section class="campaigns-section">
+                <h2>💼 Active Campaigns</h2>
+                
+                <!-- REFRESH BUTTON -->
+                <button id="refresh-campaigns" class="btn btn-secondary">🔄 Refresh Campaigns</button>
+                
+                <!-- LOADING INDICATOR -->
+                <div id="campaigns-loading" class="loading" style="display: none;">
+                    <p>Loading campaigns...</p>
+                </div>
+                
+                <!-- CAMPAIGNS CONTAINER -->
+                <!-- This container will be dynamically populated with campaign cards -->
+                <div id="campaigns-container" class="campaigns-container">
+                    <!-- Campaign cards will be inserted here by JavaScript -->
+                </div>
+                
+                <!-- NO CAMPAIGNS MESSAGE -->
+                <div id="no-campaigns" class="no-campaigns" style="display: none;">
+                    <p>No campaigns found yet. Be the first to create one!</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- CONTRIBUTION MODAL -->
+        <!-- Modal dialog for making contributions to campaigns -->
+        <div id="contribute-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <!-- CLOSE BUTTON -->
+                <span class="close">&times;</span>
+                
+                <!-- MODAL HEADER -->
+                <h3>💰 Contribute to Campaign</h3>
+                
+                <!-- CAMPAIGN INFO DISPLAY -->
+                <!-- This will be populated with selected campaign details -->
+                <div id="contribute-campaign-info"></div>
+                
+                <!-- CONTRIBUTION FORM -->
+                <form id="contribute-form">
+                    <!-- CONTRIBUTION AMOUNT INPUT -->
+                    <div class="form-group">
+                        <label for="contribution-amount">Contribution Amount (XLM):</label>
+                        <input type="number" id="contribution-amount" min="0.0000001" step="0.0000001" required
+                               placeholder="e.g., 10">
+                    </div>
+                    
+                    <!-- FORM ACTION BUTTONS -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">💸 Send Contribution</button>
+                        <button type="button" class="btn btn-secondary" id="cancel-contribute">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- STATUS MESSAGES CONTAINER -->
+        <!-- Dynamic status messages (success, error, info) will appear here -->
+        <div id="status-messages" class="status-messages"></div>
+    </div>
+
+    <!-- FOOTER SECTION -->
+    <footer>
+        <p>
+            🌟 Runs on Stellar Testnet | 
+            <a href="https://laboratory.stellar.org/account-creator" target="_blank">Get Test XLM</a> |
+            <a href="https://freighter.app/" target="_blank">Freighter Wallet</a>
+        </p>
+    </footer>
+
+    <!-- MAIN APPLICATION SCRIPT -->
+    <!-- This script contains all the application logic and blockchain interactions -->
+    <script src="script.js"></script>
+</body>
+</html> 
