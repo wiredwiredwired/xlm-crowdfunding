@@ -52,6 +52,7 @@ _site/
 .env.development.local
 .env.test.local
 .env.production.local
+instructions.tx
 
 # Stellar accounts & secrets
 accounts/
@@ -124,6 +125,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+instruction.md
 
 # Runtime data
 pids/
