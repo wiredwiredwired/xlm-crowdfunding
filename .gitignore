@@ -14,6 +14,12 @@ contract/Cargo.lock
 *.wasm
 *.optimized.wasm
 
+# Soroban test artifacts
+contract/test_snapshots/
+test_snapshots/
+*.snap
+*.snapshot
+
 # ===== NODE.JS / NPM =====
 # Dependencies
 node_modules/
