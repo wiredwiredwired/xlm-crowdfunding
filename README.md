@@ -96,12 +96,16 @@ A fully decentralized crowdfunding platform built on the Stellar blockchain usin
 ## 💻 **Tech Stack**
 
 ### **Frontend**
-- **Language:** Vanilla JavaScript (ES6+)
-- **Styling:** CSS3 with Grid and Flexbox
+- **Framework:** Next.js (React)
+- **Language:** TypeScript, JavaScript (ES6+)
+- **Styling:** Tailwind CSS, ShadCN/UI
+- **State Management:** React Hooks (useState, useEffect, useCallback)
 - **APIs:** Fetch API for HTTP requests
-- **CDN Libraries:**
-  - Stellar SDK (`stellar-sdk@12.1.0`)
+- **Wallet Integration:** Freighter API
+- **Core Libraries (via CDN/NPM):**
+  - Stellar SDK (`@stellar/stellar-sdk@13.3.0`)
   - Freighter API (`stellar-freighter-api@4.1.0`)
+  - Lucide React (for icons)
 
 ### **Smart Contracts**
 - **Language:** Rust
@@ -121,10 +125,10 @@ A fully decentralized crowdfunding platform built on the Stellar blockchain usin
   - [Stellar Expert Testnet](https://stellar.expert/explorer/testnet)
 
 ### **Development Tools**
-- **Package Manager:** Cargo (Rust), NPM (JavaScript)
-- **Testing:** Soroban test framework
-- **Deployment:** Soroban CLI
-- **Linting:** Rustfmt, ESLint
+- **Package Manager:** Cargo (Rust), NPM or Yarn (JavaScript/TypeScript for Next.js)
+- **Testing:** Soroban test framework, (Consider Jest/React Testing Library for frontend)
+- **Deployment:** Soroban CLI, Vercel/Netlify (for Next.js)
+- **Linting:** Rustfmt, ESLint, Prettier
 
 ## ⚙️ **Prerequisites**
 
@@ -140,11 +144,11 @@ rustup target add wasm32-unknown-unknown
 cargo install --locked soroban-cli
 
 # Node.js (for frontend development)
-node --version  # v18+ recommended
-npm --version   # v9+ recommended
+node --version  # v18+ recommended (check your Next.js version compatibility)
+npm --version   # v9+ recommended (or yarn)
 
-# Python (for local server)
-python3 --version  # v3.6+ recommended
+# Python (Optional: only if you have Python-specific backend scripts, not for Next.js dev server)
+# python3 --version
 ```
 
 ### **Browser Requirements**
@@ -159,63 +163,69 @@ python3 --version  # v3.6+ recommended
 
 ### **1. Clone Repository**
 ```bash
-git clone https://github.com/your-username/xlm-crowdfunding.git
+git clone https://github.com/your-username/xlm-crowdfunding.git # Replace with your actual repository URL
 cd xlm-crowdfunding
 ```
 
 ### **2. Smart Contract Setup**
 ```bash
-# Navigate to contract directory
+# Navigate to contract directory (e.g., ./contract)
 cd contract
 
 # Build the contract
 soroban contract build
-
-# Verify build success (should create .wasm file)
-ls target/wasm32-unknown-unknown/release/
 ```
 
-### **3. Local Development Environment**
+### **3. Frontend Setup**
 ```bash
-# Generate a new Stellar account for testing
-soroban keys generate alice
+# Navigate to frontend directory (e.g., ./frontend)
+cd ../frontend # Assuming it's a sibling to the 'contract' directory
 
-# Get the public key
-soroban keys address alice
+# Install dependencies
+npm install # or yarn install
 
-# Fund the account with testnet XLM
-# Visit: https://laboratory.stellar.org/#account-creator?network=test
-# Paste your public key and click "Fund"
+# Environment Variables
+# Create a .env.local file in the frontend directory.
+# Add your deployed smart contract address and other relevant details:
+# NEXT_PUBLIC_CONTRACT_ID='YOUR_DEPLOYED_CONTRACT_ID_FROM_STEP_4'
+# NEXT_PUBLIC_STELLAR_NETWORK='TESTNET'
+# NEXT_PUBLIC_HORIZON_URL='https://horizon-testnet.stellar.org'
+# NEXT_PUBLIC_NETWORK_PASSPHRASE='Test SDF Network ; September 2015'
+
+# The frontend application (e.g., dashboard page) should be configured
+# to use these environment variables.
 ```
 
-### **4. Deploy Smart Contract**
+### **4. Deploy Smart Contract (Example)**
+If you haven't deployed your smart contract yet, or need to redeploy:
 ```bash
-# Deploy to Stellar Testnet
+# (Ensure you are in the 'contract' directory)
+# Example deployment command (adjust --source as needed):
 soroban contract deploy \
   --wasm target/wasm32-unknown-unknown/release/crowdfunding.wasm \
-  --source alice \
+  --source alice \ # Ensure 'alice' identity is configured and funded
   --network testnet
 
-# Note the returned contract address
+# After deployment, copy the new Contract ID.
+# Update NEXT_PUBLIC_CONTRACT_ID in frontend/.env.local with this new ID.
 ```
 
 ### **5. Frontend Configuration**
-```bash
-# Navigate to frontend directory
-cd ../frontend
+Ensure your frontend code (especially `frontend/app/dashboard/page.tsx` or similar configuration files)
+is set up to read the `NEXT_PUBLIC_CONTRACT_ID` and other environment variables.
+The Stellar SDK, network passphrase, and Horizon URL are also critical and might be sourced from these env vars.
 
-# Update CONTRACT_ADDRESS in script.js with your deployed contract address
-# Edit line 7 in script.js:
-# const CONTRACT_ADDRESS = 'YOUR_DEPLOYED_CONTRACT_ADDRESS';
+```javascript
+// Example of how contract ID might be used in the frontend:
+// const CONTRACT_ID = process.env.NEXT_PUBLIC_CONTRACT_ID;
 ```
 
 ### **6. Start Development Server**
 ```bash
-# Start local HTTP server
-python3 -m http.server 8000
+# Navigate to your frontend directory (e.g., ./frontend):
+npm run dev # or yarn dev
 
-# Open browser and navigate to:
-# http://localhost:8000
+# Your Next.js app should now be running, typically on http://localhost:3000
 ```
 
 ## 🚀 **Deployment**
@@ -241,16 +251,20 @@ The script performs:
 
 ### **Frontend Deployment**
 
-For production deployment:
+For production deployment of your Next.js frontend:
 
 ```bash
-# Build optimized version (if using build tools)
-npm run build
+# Navigate to your frontend directory
+cd frontend
+
+# Build optimized version
+npm run build # or yarn build
 
 # Deploy to hosting service
-# - Netlify: Drag and drop build folder
-# - Vercel: Connect GitHub repository
-# - GitHub Pages: Push to gh-pages branch
+# - Vercel (Recommended for Next.js): Connect GitHub repository
+# - Netlify: Connect GitHub repository and configure Next.js build settings
+# - AWS Amplify, Google Cloud Run, Azure Static Web Apps, etc.
+# - Self-hosting with Node.js server
 ```
 
 ### **Production Considerations**
@@ -350,73 +364,35 @@ npm run build
 ## 📱 **Frontend Features**
 
 ### **User Interface Components**
+The frontend is built with Next.js and utilizes ShadCN/UI components and Tailwind CSS for a modern, responsive user experience.
 
-1. **Campaign Grid**
-   - Responsive card layout
-   - Progress bars with percentages
-   - Owner address display
-   - Contribution buttons
-
-2. **Wallet Integration**
-   - Connection status indicator
-   - Account balance display
-   - Network verification
-   - Transaction confirmations
-
-3. **Contribution Modal**
-   - Campaign details preview
-   - Amount input validation
-   - Real-time fee calculation
-   - Transaction preview
-
-4. **Status Messages**
-   - Success notifications
-   - Error handling
-   - Loading indicators
-   - Transaction links
+1.  **Dashboard:** Main view for creating and viewing crowdfunding campaigns.
+    *   Dynamic campaign cards displaying progress, goal, and owner.
+    *   Responsive grid layout.
+2.  **Wallet Integration:**
+    *   Seamless connection with Freighter wallet.
+    *   Display of connection status, user public key, and XLM balance.
+    *   Network validation to ensure connection to the correct Stellar network (Testnet/Mainnet).
+3.  **Campaign Creation:**
+    *   Form for users to define new campaign titles and funding goals.
+    *   Utilizes ShadCN Input and Button components.
+4.  **Contribution Modal:**
+    *   Interactive modal for making contributions to campaigns.
+    *   Input for specifying XLM amount.
+5.  **Status Notifications:**
+    *   Real-time messages for success, errors, and informational updates.
+    *   Transaction links to Stellar explorers.
+6.  **Theming:** Includes dark/light mode toggle.
+7.  **Iconography:** Uses Lucide React for clear visual icons.
 
 ### **Data Management**
-
-```javascript
-// LocalStorage structure
-{
-  "xlm_crowdfunding_campaigns": [
-    {
-      "id": 1,
-      "title": "Campaign Name",
-      "goal_amount": 1000,
-      "current_amount_raised": 250,
-      "base_amount": 0,
-      "owner": "STELLAR_ADDRESS"
-    }
-  ],
-  "xlm_crowdfunding_contributions": [
-    {
-      "campaignId": 1,
-      "amount": 50,
-      "txHash": "TRANSACTION_HASH",
-      "timestamp": 1640995200000,
-      "date": "2025-06-03T18:00:00.000Z"
-    }
-  ]
-}
-```
-
-### **Blockchain Data Fetching**
-
-```javascript
-// Fetch campaign contributions from Horizon API
-const response = await fetch(
-  `https://horizon-testnet.stellar.org/accounts/${ownerAddress}/payments`
-);
-
-// Parse and categorize by campaign
-const campaignContributions = {
-  1: { total: 0, contributions: [] },
-  2: { total: 250, contributions: [...] },
-  3: { total: 0, contributions: [] }
-};
-```
+# - Stellar SDK (`stellar-sdk@12.1.0`) // Outdated, updated above
+# - Freighter API (`stellar-freighter-api@4.1.0`) // Correct, kept above
+# Update CONTRACT_ADDRESS in your frontend configuration
+# For Next.js, this is typically managed via environment variables (e.g., .env.local)
+# Example: NEXT_PUBLIC_CONTRACT_ADDRESS='YOUR_DEPLOYED_CONTRACT_ADDRESS'
+# Or directly in a configuration file / component state.
+# Make sure your frontend code (e.g., dashboard/page.tsx) reads this value.
 
 ## 📋 **Smart Contract API**
 
@@ -706,6 +682,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ on the Stellar Network**
+**Built with ❤️ on the Stellar Network & Next.js**
 
 *Empowering decentralized crowdfunding for a better world.* 
