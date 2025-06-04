@@ -82,7 +82,7 @@ export function TeamSection() {
         </p>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-32 mx-auto">
+      <div className="flex flex-wrap justify-center gap-8 mx-auto">
         {teamList.map(
           ({ imageUrl, nameKey, positionsKey, socialNetworks }, index) => {
             const name = (nameKey);
@@ -90,7 +90,7 @@ export function TeamSection() {
             return (
               <Card
                 key={index}
-                className="bg-muted/60 dark:bg-card flex flex-col h-full overflow-hidden group/hoverimg max-w-xs sm:max-w-sm"
+                className="bg-muted/60 dark:bg-card flex flex-col w-80 h-[480px] overflow-hidden group/hoverimg mx-auto"
               >
                 <CardHeader className="p-0 gap-0">
                   <div className="w-full aspect-square overflow-hidden">
