@@ -276,7 +276,7 @@ Built with:
 
 **🚀 Ready to build the future of crowdfunding?**
 
-[![Get Started](https://img.shields.io/badge/Get%20Started-blue?style=for-the-badge&logo=stellar)](https://github.com/wiredwiredwired/xlm-crowdfunding)
+[![Get Started](https://img.shields.io/badge/Get%20Started-blue?style=for-the-badge&logo=stellar)](https://developers.stellar.org/docs/build/smart-contracts/getting-started)
 [![Star Project](https://img.shields.io/badge/⭐%20Star-yellow?style=for-the-badge&logo=github)](https://github.com/wiredwiredwired/xlm-crowdfunding)
 
 *Built with ❤️ for the Stellar Community*
