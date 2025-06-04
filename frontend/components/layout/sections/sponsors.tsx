@@ -54,9 +54,9 @@ export const SponsorsSection = () => {
           innerClassName="gap-[3rem]"
           pauseOnHover
         >
-          {sponsors.map(({ icon, name }) => (
+          {sponsors.map(({ icon, name }, index) => (
             <div
-              key={name}
+              key={`${name}-${index}`}
               className="flex items-center text-xl md:text-2xl font-medium"
             >
               <Icon
