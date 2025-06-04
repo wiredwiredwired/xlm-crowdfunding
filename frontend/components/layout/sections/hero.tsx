@@ -25,6 +25,7 @@ export const HeroSection = () => {
               <span className="text-transparent px-2 bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text">
                 Crowdfunding
               </span>
+              <br />
               on Stellar
             </h1>
           </div>
@@ -65,10 +66,11 @@ export const HeroSection = () => {
             className="w-full md:w-[1200px] mx-auto rounded-lg relative rouded-lg leading-none flex items-center border border-t-2 border-secondary  border-t-primary/30"
             src={
               theme === "light"
-                ? "/hero-image-light.jpeg"
-                : "/hero-image-dark.jpeg"
+                ? "/white.png"
+                : "/black.png"
             }
             alt="dashboard"
+            priority
           />
 
           <div className="absolute bottom-0 left-0 w-full h-20 md:h-28 bg-gradient-to-b from-background/0 via-background/50 to-background rounded-lg"></div>
