@@ -397,7 +397,7 @@ export default function Dashboard() {
 
         {/* Wallet Connection Area - Integrated into main flow for better visibility if not connected */}
         {!isWalletConnected && isSdkReady && (
-          <Card className="mb-10 bg-card/80 border border-border shadow-xl backdrop-blur-sm">
+          <Card className="mb-16 bg-card/80 border border-border shadow-xl backdrop-blur-sm">
             <CardHeader className="items-center">
               <CardTitle className={`text-2xl font-semibold text-center flex items-center justify-center ${TEXT_GRADIENT_CLASSES}`}>
                 <Wallet className="h-7 w-7 mr-3" /> Connect Your Wallet
@@ -437,15 +437,16 @@ export default function Dashboard() {
                     {/* Optional: Disconnect button or other actions */}
                 </div>
             </div>
-        )}
+          )}
 
         {/* Create Campaign Section */}
         {isWalletConnected && (
           <section className="mb-12">
             <div className="bg-card/70 border border-border shadow-lg rounded-xl p-6 backdrop-blur-sm">
               <div className="border-b border-border pb-4 mb-6">
-                <h2 className={`text-2xl font-semibold flex items-center ${TEXT_GRADIENT_CLASSES?.replace('text-transparent bg-clip-text ','')}`}>
-                  <PlusCircle className="h-6 w-6 mr-3" /> Create New Campaign
+                <h2 className="text-2xl font-semibold flex items-center">
+                  <PlusCircle className={`h-6 w-6 mr-3 ${PRIMARY_COLOR_FROM.replace('from-','text-')}-500`} />
+                  <span className={`${TEXT_GRADIENT_CLASSES}`}>Create New Campaign</span>
                 </h2>
                 <p className="text-muted-foreground pt-1 text-sm">
                   Launch your innovative project on the Stellar network.
@@ -493,7 +494,7 @@ export default function Dashboard() {
                 <><RefreshCw className="mr-2 h-4 w-4 text-pink-400 group-hover:text-pink-300 transition-colors" /> Refresh</>
               )}
             </Button>
-          </div>
+        </div>
 
           {(campaignsLoading && campaigns.length === 0 && isSdkReady) && (
             <div className="flex flex-col items-center justify-center text-center p-10 bg-card/50 border border-border rounded-xl shadow-md backdrop-blur-sm">
@@ -549,12 +550,12 @@ export default function Dashboard() {
                         style={{width: `${calculateProgress(campaign.current_amount_raised, campaign.goal_amount)}%`}}
                       ></div>
                     </div>
-                  </div>
+                </div>
 
                   <div className="text-sm text-muted-foreground pt-3 border-t border-border/70">
                     <span className="font-medium">Owner:</span> 
                     <Badge variant="outline" className={`ml-1.5 font-mono text-xs border-border bg-background/40 px-2 py-0.5`} title={campaign.owner}>{formatAddress(campaign.owner)}</Badge>
-                  </div>
+              </div>
                 </CardContent>
                 <CardFooter className="p-4 bg-card/30 border-t border-border/70 backdrop-blur-sm">
                   <Button 
@@ -593,7 +594,7 @@ export default function Dashboard() {
                 <div>
                   <p className="text-muted-foreground mb-0.5">Currently Raised:</p> 
                   <p className={`font-semibold text-lg text-purple-400`}>{selectedCampaign.current_amount_raised.toLocaleString()} XLM</p>
-                </div>
+            </div>
               </div>
               <form onSubmit={submitContribution} className="space-y-5">
                 <div>
@@ -621,8 +622,8 @@ export default function Dashboard() {
                   <Button type="button" variant="outline" className="w-full sm:flex-1 border-border text-muted-foreground hover:bg-muted hover:text-foreground py-3 rounded-md text-base" onClick={closeContributeModal}>
                     Cancel
                   </Button>
-                </div>
-              </form>
+              </div>
+            </form>
             </CardContent>
           </Card>
         </div>
@@ -665,11 +666,11 @@ export default function Dashboard() {
               <Button variant="ghost" size="icon" onClick={() => setStatusMessages(prev => prev.filter(m => m.id !== msg.id))} className="ml-auto -mr-1 -mt-1 h-8 w-8 text-muted-foreground hover:bg-white/5 rounded-full">
                 <XCircle className="h-5 w-5" />
               </Button>
-            </div>
+          </div>
           );
         })}
       </div>
-      
+
       <FooterSection />
     </div>
   );
