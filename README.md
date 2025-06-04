@@ -91,7 +91,7 @@ npm --version   # v9+
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/yourusername/xlm-crowdfunding.git
+git clone https://github.com/wiredwiredwired/xlm-crowdfunding.git
 cd xlm-crowdfunding
 ```
 
@@ -253,7 +253,7 @@ test: add tests
 - [Freighter Wallet](https://freighter.app) - Browser wallet
 
 ### Community
-- [GitHub Issues](https://github.com/yourusername/xlm-crowdfunding/issues) - Bug reports & features
+- [GitHub Issues](https://github.com/wiredwiredwired/xlm-crowdfunding/issues) - Bug reports & features
 - [Stellar Discord](https://discord.gg/stellar) - Developer community
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/stellar) - Q&A
 
@@ -276,8 +276,8 @@ Built with:
 
 **🚀 Ready to build the future of crowdfunding?**
 
-[![Get Started](https://img.shields.io/badge/Get%20Started-blue?style=for-the-badge&logo=stellar)](https://github.com/yourusername/xlm-crowdfunding)
-[![Star Project](https://img.shields.io/badge/⭐%20Star-yellow?style=for-the-badge&logo=github)](https://github.com/yourusername/xlm-crowdfunding)
+[![Get Started](https://img.shields.io/badge/Get%20Started-blue?style=for-the-badge&logo=stellar)](https://github.com/wiredwiredwired/xlm-crowdfunding)
+[![Star Project](https://img.shields.io/badge/⭐%20Star-yellow?style=for-the-badge&logo=github)](https://github.com/wiredwiredwired/xlm-crowdfunding)
 
 *Built with ❤️ for the Stellar Community*
 
