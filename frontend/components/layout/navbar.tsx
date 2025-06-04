@@ -35,29 +35,33 @@ interface FeatureProps {
 
 const routeList: RouteProps[] = [
   {
-    href: "#benefits",
+    href: "/dashboard",
+    label: "Dashboard",
+  },
+  {
+    href: "/#benefits",
     label: "Benefits",
   },
   {
-    href: "#team",
+    href: "/#team",
     label: "Team",
   },
 ];
 
 const featureList: FeatureProps[] = [
   {
-    title: "Showcase Your Value ",
-    description: "Highlight how your product solves user problems.",
+    title: "Stellar Blockchain",
+    description: "Built on Stellar network for fast and low-cost transactions.",
   },
   {
-    title: "Build Trust",
+    title: "Freighter Wallet",
     description:
-      "Leverages social proof elements to establish trust and credibility.",
+      "Secure wallet integration for managing your XLM and campaign funds.",
   },
   {
-    title: "Capture Leads",
+    title: "Transparent Funding",
     description:
-      "Make your lead capture form visually appealing and strategically.",
+      "All transactions are recorded on the blockchain for complete transparency.",
   },
 ];
 

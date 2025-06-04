@@ -11,27 +11,27 @@ import { TeamSection } from "@/components/layout/sections/team";
 import { TestimonialSection } from "@/components/layout/sections/testimonial";
 
 export const metadata = {
-  title: "Soullar",
-  description: "Landing page of Soullar",
+  title: "Stellar Crowdfunding",
+  description: "Decentralized crowdfunding platform built on Stellar (XLM) blockchain",
   openGraph: {
     type: "website",
-    url: "https://github.com/nobruf/shadcn-landing-page.git",
-    title: "Shadcn - Landing template",
-    description: "Free Shadcn landing page for developers",
+    url: "https://github.com/yourrepo/stellar-crowdfunding.git",
+    title: "Stellar Crowdfunding - Decentralized Platform",
+    description: "Create and fund innovative projects using Stellar blockchain",
     images: [
       {
         url: "https://res.cloudinary.com/dbzv9xfjp/image/upload/v1723499276/og-images/shadcn-vue.jpg",
         width: 1200,
         height: 630,
-        alt: "Shadcn - Landing template",
+        alt: "Stellar Crowdfunding Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "https://github.com/nobruf/shadcn-landing-page.git",
-    title: "Shadcn - Landing template",
-    description: "Free Shadcn landing page for developers",
+    site: "https://github.com/yourrepo/stellar-crowdfunding.git",
+    title: "Stellar Crowdfunding - Decentralized Platform",
+    description: "Create and fund innovative projects using Stellar blockchain",
     images: [
       "https://res.cloudinary.com/dbzv9xfjp/image/upload/v1723499276/og-images/shadcn-vue.jpg",
     ],

@@ -224,4 +224,5 @@ venv.bak/
 /target/
 **/*.rs.bk
 
+/frontend-old/
 # ===== END OF GITIGNORE ===== 

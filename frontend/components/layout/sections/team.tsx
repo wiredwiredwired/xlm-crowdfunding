@@ -1,6 +1,4 @@
-import GithubIcon from "@/components/icons/github-icon";
-import LinkedInIcon from "@/components/icons/linkedin-icon";
-import XIcon from "@/components/icons/x-icon";
+import { Github, Linkedin, Twitter } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -62,11 +60,13 @@ export function TeamSection() {
   const socialIcon = (socialName: string) => {
     switch (socialName) {
       case "LinkedIn":
-        return <LinkedInIcon />;
+        return <Linkedin className="w-5 h-5" />;
       case "Github":
-        return <GithubIcon />;
+        return <Github className="w-5 h-5" />;
       case "X":
-        return <XIcon />;
+        return <Twitter className="w-5 h-5" />;
+      default:
+        return null;
     }
   };
 
@@ -75,10 +75,10 @@ export function TeamSection() {
       <div className="text-center mb-8">
 
         <h2 className="text-3xl md:text-4xl text-center font-bold">
-          {('Wired Team')}
+          Our Team
         </h2>
         <p className="text-xl text-muted-foreground mt-4 md:w-2/3 mx-auto">
-          {('close the world, open the next')}
+          Building the future of decentralized crowdfunding
         </p>
       </div>
 
@@ -96,7 +96,7 @@ export function TeamSection() {
                   <div className="w-full aspect-square overflow-hidden">
                     <Image
                       src={imageUrl}
-                      alt={`${name} - wired Team Member`}
+                      alt={`${name} - Team Member`}
                       width={300}
                       height={300}
                       className="w-full h-full object-cover saturate-0 transition-all duration-200 ease-linear group-hover/hoverimg:saturate-100 group-hover/hoverimg:scale-[1.03]"
