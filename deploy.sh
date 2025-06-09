@@ -63,15 +63,16 @@ echo "       --wasm target/wasm32-unknown-unknown/release/crowdfunding.wasm \\"
 echo "       --source alice \\"
 echo "       --network testnet"
 echo ""
-echo "4. Update the CONTRACT_ADDRESS variable in frontend/script.js with the deployed contract address."
+echo "4. Update the contract address in frontend/app/dashboard/page.tsx with the deployed contract address."
 echo ""
 
 cd ..
 
 echo "💻 Frontend Development Server:"
 echo "   cd frontend"
-echo "   python3 -m http.server 8000"
-echo "   # Open http://localhost:8000 in your browser"
+echo "   npm install"
+echo "   npm run dev"
+echo "   # Open http://localhost:3000 in your browser"
 echo ""
 
 echo "📋 Required Tools and Resources:"
