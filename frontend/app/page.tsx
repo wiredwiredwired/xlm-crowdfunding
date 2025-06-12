@@ -15,7 +15,7 @@ export const metadata = {
   description: "Decentralized crowdfunding platform built on Stellar (XLM) blockchain",
   openGraph: {
     type: "website",
-    url: "https://github.com/yourrepo/stellar-crowdfunding.git",
+    url: "https://github.com/wiredwiredwired/xlm-crowdfunding.git",
     title: "Stellar Crowdfunding - Decentralized Platform",
     description: "Create and fund innovative projects using Stellar blockchain",
     images: [
