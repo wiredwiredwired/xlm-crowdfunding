@@ -29,7 +29,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "https://github.com/yourrepo/stellar-crowdfunding.git",
+    site: "https://github.com/wiredwiredwired/xlm-crowdfunding.git",
     title: "Stellar Crowdfunding - Decentralized Platform",
     description: "Create and fund innovative projects using Stellar blockchain",
     images: [
